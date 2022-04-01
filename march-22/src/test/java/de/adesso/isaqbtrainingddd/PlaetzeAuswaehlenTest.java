@@ -8,13 +8,20 @@ public class PlaetzeAuswaehlenTest {
     void test() {
 
         // James Bond 20:00 Uhr
-        var vorstellung = new Vorstellung();
+        var vorstellungId = new VorstellungId();
         // Saalplan ermittelt
-        var saalplan = vorstellung.getSaalplan();
+        var saalplanRepo = new SaalplanRepositoryInMemoryImpl();
+        var saalplan = saalplanRepo.getSaalplan(vorstellungId);
+        assert saalplan != null; 
         // Platz 7E gewählt
         var sitz = new Sitz('E');
-        var reihe = new Reihe(7);
-        assert saalplan.getPlatz(reihe, sitz).isFrei();
+        var reihe = Reihe.of(7);
+
+        Platz platz = new Platz(reihe, sitz);
+        Platz saalplanPlatz = saalplan.getPlatz(reihe, sitz);
+        assert platz.equals(saalplanPlatz);
+
+        assert saalplanPlatz.isFrei();
         saalplan.waehlePlatzAus(reihe, sitz);
         // Platz für 15 Min. blockiert
         // Platz im Saalplan vergeben markiert

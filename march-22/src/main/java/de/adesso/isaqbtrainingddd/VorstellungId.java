@@ -1,6 +1,6 @@
 package de.adesso.isaqbtrainingddd;
 
-public class Vorstellung {
+public class VorstellungId {
 
     public Saalplan getSaalplan() {
         return null;
